@@ -1,0 +1,20 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+<h1>Hey <%= @guest.name %></h1>
+<p>
+<h3>Your reservation is successfully created.</h3>
+<div>Here is the detail:</div>
+<ul>
+  <li>Time: <%= @reservation.reservation_time.strftime("%d %b @ %l.%M %p, %Y") %></li>
+  <li>No. of Guests: <%= @reservation.guest_count %></li>
+</ul>
+</p>
+<p>Thanks for using Retro-Resto and have a great day!</p>
+</body>
+</html>
+

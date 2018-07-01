@@ -4,6 +4,8 @@ class Reservation < ApplicationRecord
   belongs_to :restaurant
   belongs_to :guest
 
+  # has_one :updated_reservation, class_name: "Reservation", foreign_key:
+
   validates :reservation_time, presence: true
 
   validates :guest_count,

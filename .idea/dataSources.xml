@@ -7,5 +7,29 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/retro-resto_development</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="Rails retro-resto: production" uuid="e2e8a1d2-cde9-47e2-a6f5-36fe443574e9">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>$PROJECT_DIR$/config/database.yml</remarks>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql:retro-resto_production</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="Rails retro-resto: development" uuid="0c8a301c-b72d-4e89-b669-c482671e62bc">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>$PROJECT_DIR$/config/database.yml</remarks>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql:retro-resto_development</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="Rails retro-resto: test" uuid="8eee136d-c0b5-4cd7-bed1-fc0446a2de1e">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>$PROJECT_DIR$/config/database.yml</remarks>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql:retro-resto_test</jdbc-url>
+    </data-source>
   </component>
 </project>
