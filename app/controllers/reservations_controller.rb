@@ -1,21 +1,21 @@
 # frozen_string_literal: true
 
 class ReservationsController < ApplicationController
+  before_action :set_reservation, only: [:show, :update, :destroy]
+  before_action :set_restaurant, only: [:index, :create]
+
   def index
-    @reservations = Restaurant.find(params[:restaurant_id]).reservations
+    @reservations = @restaurant.reservations
     json_response(@reservations)
   end
 
   def create
-    restaurant = Restaurant.find(params[:restaurant_id])
-    @reservation = restaurant.create_reservation(guest_params, reservation_params)
-
+    @reservation = @restaurant.create_reservation(guest_params, reservation_params)
     json_response(@reservation)
   end
 
   def update
-    restaurant = Restaurant.find(params[:restaurant_id])
-    @reservation = restaurant.reservations.find_by(id: params[:id])
+    @reservation = @restaurant.reservations.find_by(id: params[:id])
 
     updated = @reservation.update(guest_count: params[:guest_count],
                                   reservation_time: params[:reservation_time])
@@ -29,7 +29,21 @@ class ReservationsController < ApplicationController
     json_response(@reservation)
   end
 
+  def show
+    json_response(@reservation)
+  end
+
   def destroy
+    @reservation.destroy
+    head :no_content
+  end
+
+  def set_reservation
+    @reservation = Reservation.find(params[:id])
+  end
+
+  def set_restaurant
+    @restaurant = Restaurant.find(params[:restaurant_id])
   end
 
   def guest_params
