@@ -10,6 +10,7 @@
 <h3>Your reservation is successfully created.</h3>
 <div>Here is the detail:</div>
 <ul>
+  <li>Restaurant Name: <%= @reservation.restaurant.name %></li>
   <li>Time: <%= @reservation.reservation_time.strftime("%d %b @ %l.%M %p, %Y") %></li>
   <li>No. of Guests: <%= @reservation.guest_count %></li>
 </ul>

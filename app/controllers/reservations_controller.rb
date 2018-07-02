@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ReservationsController < ApplicationController
   def index
     @reservations = Restaurant.find(params[:restaurant_id]).reservations
@@ -6,16 +8,7 @@ class ReservationsController < ApplicationController
 
   def create
     restaurant = Restaurant.find(params[:restaurant_id])
-    guest = restaurant.guests.new(guest_params)
-    guest.save
-
-    @reservation = Reservation.create(guest_id: guest.id, restaurant_id: restaurant.id,
-                                      guest_count: params[:guest_count], reservation_time: params[:reservation_time])
-
-    if @reservation
-      ReservationMailer.with(reservation: @reservation)
-                       .reservation_email.deliver_now
-    end
+    @reservation = restaurant.create_reservation(guest_params, reservation_params)
 
     json_response(@reservation)
   end
@@ -24,8 +17,14 @@ class ReservationsController < ApplicationController
     restaurant = Restaurant.find(params[:restaurant_id])
     @reservation = restaurant.reservations.find_by(id: params[:id])
 
-    @reservation.update(guest_count: params[:guest_count],
-                        reservation_time: params[:reservation_time])
+    updated = @reservation.update(guest_count: params[:guest_count],
+                                  reservation_time: params[:reservation_time])
+
+    if updated
+      ReservationMailer.with(reservation: @reservation)
+                       .update_reservation_email
+                       .deliver_now
+    end
 
     json_response(@reservation)
   end
@@ -35,5 +34,9 @@ class ReservationsController < ApplicationController
 
   def guest_params
     params.permit(:name, :email)
+  end
+
+  def reservation_params
+    params.permit(:guest_count, :reservation_time, :table_id)
   end
 end

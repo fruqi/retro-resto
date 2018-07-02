@@ -11,4 +11,5 @@ class Table < ApplicationRecord
             numericality: { greater_than: 0 }
 
   belongs_to :restaurant
+  has_many :reservations
 end

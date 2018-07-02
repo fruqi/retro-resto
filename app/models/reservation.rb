@@ -1,24 +1,25 @@
 # frozen_string_literal: true
 
 class Reservation < ApplicationRecord
+  before_save :check_restaurant_operation_hour
+
   belongs_to :restaurant
   belongs_to :guest
-
-  # has_one :updated_reservation, class_name: "Reservation", foreign_key:
+  belongs_to :table
 
   validates :reservation_time, presence: true
-
   validates :guest_count,
             presence: true,
             numericality: { greater_than: 0 }
 
-  def self.create_reservation(restaurant_id, user_id, guest_count, reservation_time)
-    restaurant = Restaurant.find(restaurant_id)
-    guest = Guest.find(user_id)
+  def guest_count=(value)
+    write_attribute :guest_count, value.to_i
+  end
 
-    if restaurant.check_operation_hour(reservation_time)
-      create(guest_id: guest.id, restaurant_id: restaurant.id,
-             guest_count: guest_count, reservation_time: reservation_time)
+  def check_restaurant_operation_hour
+    unless restaurant.within_operation_hour?(reservation_time)
+      errors.add(:reservation_time, 'Reservation must be within operation hour')
+      raise ActiveRecord::RecordInvalid, self
     end
   end
 end

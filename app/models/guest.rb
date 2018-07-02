@@ -4,4 +4,6 @@ class Guest < ApplicationRecord
 
   has_many :reservations
   has_many :restaurants, through: :reservations
+
+  accepts_nested_attributes_for :reservations
 end

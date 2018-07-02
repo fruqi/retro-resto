@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   resources :restaurants do
     resources :reservations
-    resources :shift
+    resources :shifts
+    resources :tables
   end
 end
